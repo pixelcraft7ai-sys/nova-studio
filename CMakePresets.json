@@ -1,0 +1,23 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": { "major": 3, "minor": 21, "patch": 0 },
+  "configurePresets": [
+    { "name": "dev", "displayName": "Developer (Debug, warnings as errors)", "binaryDir": "${sourceDir}/build/dev",
+      "generator": "Ninja",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug", "NOVA_WARNINGS_AS_ERRORS": "ON" } },
+    { "name": "ci", "displayName": "CI (Release, warnings as errors)", "binaryDir": "${sourceDir}/build/ci",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release", "NOVA_WARNINGS_AS_ERRORS": "ON" } },
+    { "name": "asan", "inherits": "dev", "displayName": "Sanitizers (ASan+UBSan)", "binaryDir": "${sourceDir}/build/asan",
+      "cacheVariables": { "NOVA_SANITIZE": "ON" } }
+  ],
+  "buildPresets": [
+    { "name": "dev", "configurePreset": "dev" },
+    { "name": "ci", "configurePreset": "ci", "configuration": "Release" },
+    { "name": "asan", "configurePreset": "asan" }
+  ],
+  "testPresets": [
+    { "name": "dev", "configurePreset": "dev", "output": { "outputOnFailure": true } },
+    { "name": "ci", "configurePreset": "ci", "configuration": "Release", "output": { "outputOnFailure": true } },
+    { "name": "asan", "configurePreset": "asan", "output": { "outputOnFailure": true } }
+  ]
+}

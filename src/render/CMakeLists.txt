@@ -1,0 +1,5 @@
+add_library(nova_render STATIC render_backend.cpp)
+add_library(nova::render ALIAS nova_render)
+target_include_directories(nova_render PUBLIC include)
+target_link_libraries(nova_render PUBLIC nova::core nova::document)
+nova_configure_target(nova_render)

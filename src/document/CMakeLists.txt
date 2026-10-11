@@ -1,0 +1,5 @@
+add_library(nova_document STATIC document.cpp)
+add_library(nova::document ALIAS nova_document)
+target_include_directories(nova_document PUBLIC include)
+target_link_libraries(nova_document PUBLIC nova::core)
+nova_configure_target(nova_document)

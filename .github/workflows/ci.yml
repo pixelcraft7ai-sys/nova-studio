@@ -1,0 +1,72 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: build + test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            qt_arch: ""
+          - os: windows-2022
+            qt_arch: win64_msvc2019_64
+          - os: macos-14
+            qt_arch: ""
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Qt (pinned)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.5.3
+          arch: ${{ matrix.qt_arch }}
+          cache: true
+      - name: Linux system libraries
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libgl1-mesa-dev libxkbcommon-x11-0 libegl1
+      - name: Configure
+        run: cmake --preset ci
+      - name: Build
+        run: cmake --build --preset ci
+      - name: Test
+        run: ctest --preset ci
+      - name: Collect diagnostics on failure
+        if: failure()
+        shell: bash
+        run: |
+          mkdir -p diagnostics
+          cp -r build/ci/Testing diagnostics/ 2>/dev/null || true
+          cp -r build/ci/smoke-config diagnostics/ 2>/dev/null || true
+      - name: Upload diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostics-${{ matrix.os }}
+          path: diagnostics
+
+  quality:
+    name: format + static analysis + sanitizers
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tools
+        run: sudo apt-get update && sudo apt-get install -y cmake ninja-build g++ qt6-base-dev libgl1-mesa-dev clang-format cppcheck
+      - name: clang-format
+        run: find src tests \( -name '*.cpp' -o -name '*.hpp' \) | xargs clang-format --dry-run -Werror
+      - name: cppcheck
+        run: >
+          cppcheck --enable=warning,performance,portability --error-exitcode=1 --inline-suppr -q
+          -I src/core/include src/core src/document src/render src/formats src/platform
+      - name: ASan + UBSan build and tests
+        run: |
+          cmake --preset asan
+          cmake --build --preset asan
+          ctest --preset asan

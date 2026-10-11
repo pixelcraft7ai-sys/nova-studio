@@ -1,0 +1,5 @@
+Checks: >
+  -*,bugprone-*,performance-*,modernize-use-override,modernize-use-nullptr,
+  readability-container-size-empty,-bugprone-easily-swappable-parameters,-bugprone-exception-escape
+WarningsAsErrors: ''
+HeaderFilterRegex: 'src/.*'

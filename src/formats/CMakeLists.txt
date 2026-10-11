@@ -1,0 +1,5 @@
+add_library(nova_formats STATIC format_registry.cpp)
+add_library(nova::formats ALIAS nova_formats)
+target_include_directories(nova_formats PUBLIC include)
+target_link_libraries(nova_formats PUBLIC nova::core nova::document)
+nova_configure_target(nova_formats)
