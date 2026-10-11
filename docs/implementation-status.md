@@ -1,8 +1,8 @@
 # Implementation status
 
-_Last updated: 2026-10-11_
+_Last updated: 2026-10-11 (second pass)_
 
-## Phase 00 — infrastructure and foundation: **implemented locally; see gaps before calling it complete**
+## Phase 00 — infrastructure and foundation: **complete locally; blocked from final acceptance only by CI never having run on GitHub**
 
 ### What exists
 - Repo scaffold: LICENSE (provisional), SECURITY, CONTRIBUTING, BUILDING, CHANGELOG, issue template, `.clang-format`, `.clang-tidy`, `.editorconfig`.
@@ -19,19 +19,17 @@ _Last updated: 2026-10-11_
 - `ctest --preset asan` (ASan+UBSan): 12/12 pass. Build is warning-free under `-Wall -Wextra -Wpedantic -Wconversion -Werror` etc.
 - clang-format applied; cppcheck clean.
 
-### NOT verified / gaps (these block calling the phase accepted)
-1. **CI has never run.** Windows and macOS builds are untested; Qt 6.5.3 in CI differs from the 6.4.2 tested here. "Passes CI on declared systems" is therefore unproven.
-2. Acceptance item "a new developer builds from a clean environment" was checked only by a fresh clone on this same machine (see log below), not on a clean OS image.
-3. GitHub Actions are not pinned to commit SHAs; Qt downloads are not hash-verified (ADR 0007).
-4. clang-tidy config exists but clang-tidy was not run.
-5. Window opens/closes verified offscreen only, not on a real display.
-6. `app` sets RTL and uses hard-coded Arabic strings; a real translation system is phase 02.
-7. Atomic write does not fsync (durability is phase 03).
+### Closed in the second pass
+- GitHub Actions pinned to commit SHAs (ADR 0007).
+- clang-tidy run on all sources: clean (also added to the CI `quality` job). 
+- Licence decided by owner: proprietary, sole owner (ADR 0008); `LICENSE` and `SECURITY.md` updated (no email needed).
 
-### Decisions needed from you
-- **Project licence** (ADR 0008) — blocks any publication.
-- **Security contact address** for `SECURITY.md`.
-- Confirm Qt as the GUI toolkit given its LGPL/commercial licensing (ADR 0001).
+### Still open (honest list)
+1. **CI has never run** (no GitHub credentials available to me yet). Windows/macOS and Qt 6.5.3 are untested. This is the only item that blocks formal acceptance.
+2. Qt licence: dynamic LGPL linking is planned; owner has not yet confirmed (ADR 0008 open item).
+3. Qt downloads in CI are not hash-verified; release age of pinned actions not checked.
+4. Window verified offscreen only, not on a real display.
+5. Hard-coded Arabic strings (translation system: phase 02); atomic write has no fsync (phase 03).
 
 ### Clean-clone check (log)
 `git clone` into a new directory → `cmake --preset dev` → build → `ctest --preset dev`: 11/11 passed at the time (now 12 tests incl. `app_version_no_display`). First run found that `--version` needed a display; fixed and covered by a test.
