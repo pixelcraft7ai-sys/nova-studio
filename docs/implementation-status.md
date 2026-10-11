@@ -1,6 +1,29 @@
 # Implementation status
 
-_Last updated: 2026-10-11 (CI verified)_
+_Last updated: 2026-10-11 (phase 01 documents)_
+
+## Phase 01 — product discovery and governance: **documents delivered; formal acceptance waits for owner approval**
+
+### Delivered (all under `docs/`)
+- `product/release-1-scope.md` (in / partial / deferred with reasons), `product/personas.md`, `product/user-journey.md`.
+- `product/feature-inventory.md`: 45 features, each tagged "موجودة في الصناعة" (37) or "تميّز مقترح يحتاج تحققًا" (8).
+- `product/requirements.md`: 29 functional + 11 non-functional requirements, each with verification method and metric.
+- `product/metrics.md`, `product/prioritization-rice.md` (preliminary agent estimates, formula stated), `product/dependency-map.md`.
+- `product/privacy-and-rights-framework.md`, `product/claims-policy.md`, `product/naming-status.md`, `product/open-questions.md` (13 questions, each with an owner).
+- `product-decisions.md` (13 decisions, with status and source), `risks-and-assumptions.md` (10 risks, 7 unverified assumptions).
+
+### Verified
+- `product_docs_check`: every feature classified; deferred features have a reason; every V1/partial feature is covered by a requirement; every requirement has verification + metric; referenced IDs exist; every question has an owner; no forbidden novelty claims. `product_docs_selftest` proves the checker fails on six kinds of bad input.
+- Full suite: 14/14 locally (previous 12 + 2 new).
+
+### Not done / honest limits
+1. **No user research happened.** Personas, pains and RICE inputs are hypotheses from the blueprint, marked as such. Interviews (Q-06) are needed.
+2. **Naming check is a single public web search**, not trademark clearance. Several prior uses of "Nova"/"Nova Studio" exist in nearby fields (see `product/naming-status.md`). Legal review required (Q-01).
+3. No patent/prior-art search was done; differentiators stay "تميّز مقترح يحتاج تحققًا".
+4. Acceptance item "approval of decisions affecting brand, privacy and business model" is **pending**: DEC-03, DEC-05 (final name), DEC-10, DEC-11 and the Proposed scope (DEC-04).
+
+### Decisions needed from the owner
+Approve or change the `Proposed` rows in `docs/product-decisions.md`; answer Q-01…Q-13 as far as possible (at minimum Q-03 business model, Q-04 AI stance, Q-05 first segment).
 
 ## Phase 00 — infrastructure and foundation: **COMPLETE — CI green on Ubuntu 24.04, Windows 2022, macOS 14 and the quality job**
 

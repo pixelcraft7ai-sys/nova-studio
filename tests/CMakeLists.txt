@@ -39,3 +39,14 @@ add_test(NAME layering_selftest
 add_test(NAME app_version_no_display COMMAND nova-studio --version)
 set_tests_properties(app_version_no_display PROPERTIES
   ENVIRONMENT "QT_QPA_PLATFORM=" PASS_REGULAR_EXPRESSION "NOVA Studio ${PROJECT_VERSION}")
+
+# Product documents: classification, traceability, owners, forbidden claims.
+find_package(Python3 COMPONENTS Interpreter)
+if(Python3_FOUND)
+  add_test(NAME product_docs_check
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/scripts/check_product_docs.py ${CMAKE_SOURCE_DIR})
+  add_test(NAME product_docs_selftest
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/scripts/check_product_docs_selftest.py)
+else()
+  message(WARNING "Python3 not found: product documentation checks are skipped")
+endif()

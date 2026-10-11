@@ -6,6 +6,7 @@ pending a trademark check.
 
 - Build & run: `BUILDING.md`
 - Architecture decisions: `docs/architecture/decisions/`
+- Product scope, requirements, metrics, privacy framework: `docs/product/`; decisions: `docs/product-decisions.md`; risks: `docs/risks-and-assumptions.md`
 - Progress, test results, open decisions: `docs/implementation-status.md`
 - Product blueprint and phase plan are kept alongside the project (`blueprint-nova-studio-ar.md`, `NOVA-Studio-Workplan`).
 
