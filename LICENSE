@@ -1,10 +1,9 @@
-NOVA Studio — PROVISIONAL LICENCE NOTICE
+NOVA Studio
 
-Copyright (c) 2026 the NOVA Studio authors. All rights reserved.
+Copyright (c) 2026 the NOVA Studio owner. All rights reserved.
 
-No open-source or commercial licence has been chosen yet. Until the project
-owner records a decision in docs/architecture/decisions/0008-project-license.md
-(status "Accepted") and replaces this file, no permission is granted to use,
-copy, modify or distribute this code outside the project team.
+This is proprietary software owned solely by the project owner. No licence to
+use, copy, modify, or distribute it is granted to anyone else.
+(Decision recorded in docs/architecture/decisions/0008-project-license.md.)
 
 Third-party components keep their own licences; see docs/dependencies.md.

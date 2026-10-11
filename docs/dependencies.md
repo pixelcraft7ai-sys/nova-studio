@@ -11,6 +11,6 @@ that is not listed.
 | Ninja | build | any | distro | Apache-2.0 | optional |
 | clang-format | dev/CI | 18 | distro | Apache-2.0 w/ LLVM exception | style only |
 | cppcheck | dev/CI | distro | distro | GPLv3 | analysis tool, not shipped |
-| GitHub Actions: `actions/checkout`, `actions/upload-artifact`, `jurplel/install-qt-action` | CI | tags `v4` | github.com | MIT / various | **Not pinned to commit SHAs** (could not be resolved offline). Follow-up: pin SHAs. |
+| GitHub Actions: `actions/checkout` v7.0.1, `actions/upload-artifact` v7.0.2, `jurplel/install-qt-action` v4.4.1 | CI | pinned to commit SHAs (see ci.yml) | github.com | MIT / various | SHAs resolved via `git ls-remote`; release age not checked. |
 
 No third-party code is vendored. Phase 03+ will add compression/ICC/etc.; each needs a row and an ADR.

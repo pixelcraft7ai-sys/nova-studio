@@ -24,6 +24,7 @@ core::Result<std::unique_ptr<IRenderBackend>> RenderBackendRegistry::create(cons
 
 std::vector<std::string> RenderBackendRegistry::ids() const {
   std::vector<std::string> out;
+  out.reserve(factories_.size());
   for (const auto& kv : factories_) out.push_back(kv.first);
   return out;
 }

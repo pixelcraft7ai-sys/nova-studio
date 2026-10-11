@@ -1,5 +1,5 @@
 Checks: >
   -*,bugprone-*,performance-*,modernize-use-override,modernize-use-nullptr,
-  readability-container-size-empty,-bugprone-easily-swappable-parameters,-bugprone-exception-escape
+  readability-container-size-empty,-bugprone-easily-swappable-parameters,-bugprone-exception-escape,-performance-enum-size,-clang-diagnostic-gnu-zero-variadic-macro-arguments
 WarningsAsErrors: ''
 HeaderFilterRegex: 'src/.*'

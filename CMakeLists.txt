@@ -23,7 +23,7 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS Core Widgets Test)
 
 if(NOVA_ENABLE_CLANG_TIDY)
   find_program(NOVA_CLANG_TIDY NAMES clang-tidy REQUIRED)
-  set(CMAKE_CXX_CLANG_TIDY "${NOVA_CLANG_TIDY}")
+  set(CMAKE_CXX_CLANG_TIDY "${NOVA_CLANG_TIDY};--extra-arg=-Wno-gnu-zero-variadic-macro-arguments")
 endif()
 
 # Layering (enforced by tests/scripts/check_layering.cmake):

@@ -54,7 +54,10 @@ class Result<void> {
 
   [[nodiscard]] bool ok() const noexcept { return !error_.has_value(); }
   explicit operator bool() const noexcept { return ok(); }
-  [[nodiscard]] const Error& error() const { return *error_; }
+  // Precondition: !ok(). value() throws instead of invoking UB if misused.
+  [[nodiscard]] const Error& error() const {
+    return error_.value();  // NOLINT(bugprone-unchecked-optional-access)
+  }
 
  private:
   std::optional<Error> error_;

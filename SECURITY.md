@@ -1,9 +1,7 @@
 # Security policy
 
 ## Reporting a vulnerability
-Do **not** open a public issue. Send a private report to the maintainers
-(contact address: **TBD — owner decision, see docs/implementation-status.md**).
-Include the version (`nova-studio --version`), OS, and reproduction steps.
+Do **not** open a public issue. The project is private and owned by a single owner: report vulnerabilities directly to the owner (or, once the repo is on GitHub, via a private security advisory). Include the version (`nova-studio --version`), OS, and reproduction steps.
 **Never attach your own artwork or client files**; use a synthetic sample.
 
 ## Design commitments (enforced by tests where marked)

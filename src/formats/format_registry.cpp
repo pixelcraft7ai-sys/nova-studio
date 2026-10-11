@@ -34,6 +34,7 @@ std::shared_ptr<IFormatHandler> FormatRegistry::findByExtension(const std::strin
 
 std::vector<std::string> FormatRegistry::ids() const {
   std::vector<std::string> out;
+  out.reserve(handlers_.size());
   for (const auto& h : handlers_) out.push_back(h->id());
   return out;
 }
