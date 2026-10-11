@@ -1,8 +1,8 @@
 # Implementation status
 
-_Last updated: 2026-10-11 (second pass)_
+_Last updated: 2026-10-11 (CI verified)_
 
-## Phase 00 — infrastructure and foundation: **complete locally; blocked from final acceptance only by CI never having run on GitHub**
+## Phase 00 — infrastructure and foundation: **COMPLETE — CI green on Ubuntu 24.04, Windows 2022, macOS 14 and the quality job**
 
 ### What exists
 - Repo scaffold: LICENSE (provisional), SECURITY, CONTRIBUTING, BUILDING, CHANGELOG, issue template, `.clang-format`, `.clang-tidy`, `.editorconfig`.
@@ -24,12 +24,16 @@ _Last updated: 2026-10-11 (second pass)_
 - clang-tidy run on all sources: clean (also added to the CI `quality` job). 
 - Licence decided by owner: proprietary, sole owner (ADR 0008); `LICENSE` and `SECURITY.md` updated (no email needed).
 
-### Still open (honest list)
-1. **CI has never run** (no GitHub credentials available to me yet). Windows/macOS and Qt 6.5.3 are untested. This is the only item that blocks formal acceptance.
-2. Qt licence: dynamic LGPL linking is planned; owner has not yet confirmed (ADR 0008 open item).
-3. Qt downloads in CI are not hash-verified; release age of pinned actions not checked.
-4. Window verified offscreen only, not on a real display.
-5. Hard-coded Arabic strings (translation system: phase 02); atomic write has no fsync (phase 03).
+### CI verification (GitHub Actions, repo pixelcraft7ai-sys/nova-studio, commit a484ae2)
+- `build + test` passed on ubuntu-24.04, windows-2022, macos-14 (Qt 6.5.3, Release, warnings as errors), 12/12 tests each.
+- `format + static analysis + sanitizers` passed (clang-format, cppcheck, clang-tidy, ASan+UBSan).
+- Problems found and fixed by running CI for real: a malformed cppcheck suppression; Qt Test's variadic macro warning under Apple Clang (broke the macOS build).
+
+### Remaining non-blocking items
+1. Qt licence (dynamic LGPL linking) awaits your confirmation; legal review advised before any public release (ADR 0008).
+2. Qt downloads in CI are not hash-verified; release age of pinned actions not checked.
+3. Window verified offscreen in CI, not by a human on a real display.
+4. Hard-coded Arabic strings (translation system: phase 02); atomic write has no fsync (phase 03).
 
 ### Clean-clone check (log)
 `git clone` into a new directory → `cmake --preset dev` → build → `ctest --preset dev`: 11/11 passed at the time (now 12 tests incl. `app_version_no_display`). First run found that `--version` needed a display; fixed and covered by a test.
