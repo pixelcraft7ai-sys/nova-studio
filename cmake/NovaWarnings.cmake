@@ -9,6 +9,10 @@ function(nova_configure_target target)
     target_compile_options(${target} PRIVATE
       -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual
       -Wconversion -Wsign-conversion -Wold-style-cast -Wnull-dereference)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+      # Qt Test's QTEST_* macros trigger this under -Wpedantic with Clang/AppleClang.
+      target_compile_options(${target} PRIVATE -Wno-gnu-zero-variadic-macro-arguments)
+    endif()
     if(NOVA_WARNINGS_AS_ERRORS)
       target_compile_options(${target} PRIVATE -Werror)
     endif()
