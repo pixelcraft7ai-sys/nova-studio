@@ -15,8 +15,8 @@ _Last updated: 2026-10-11_
 - CI: `.github/workflows/ci.yml` (3 OSes + quality job).
 
 ### Verified here (Ubuntu 24.04, GCC 13.3, Qt 6.4.2, CMake 3.28.3)
-- `ctest --preset dev`: 11/11 pass (unit tests per module, headless window test, binary smoke test, layering check + its self-test, secret scan + its self-test).
-- `ctest --preset asan` (ASan+UBSan): 11/11 pass. Build is warning-free under `-Wall -Wextra -Wpedantic -Wconversion -Werror` etc.
+- `ctest --preset dev`: 12/12 pass (unit tests per module, headless window test, binary smoke test, layering check + its self-test, secret scan + its self-test).
+- `ctest --preset asan` (ASan+UBSan): 12/12 pass. Build is warning-free under `-Wall -Wextra -Wpedantic -Wconversion -Werror` etc.
 - clang-format applied; cppcheck clean.
 
 ### NOT verified / gaps (these block calling the phase accepted)
@@ -32,3 +32,6 @@ _Last updated: 2026-10-11_
 - **Project licence** (ADR 0008) — blocks any publication.
 - **Security contact address** for `SECURITY.md`.
 - Confirm Qt as the GUI toolkit given its LGPL/commercial licensing (ADR 0001).
+
+### Clean-clone check (log)
+`git clone` into a new directory → `cmake --preset dev` → build → `ctest --preset dev`: 11/11 passed at the time (now 12 tests incl. `app_version_no_display`). First run found that `--version` needed a display; fixed and covered by a test.

@@ -1,11 +1,22 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <iostream>
+#include <string>
 
 #include "main_window.hpp"
 #include "nova/core/version.hpp"
 
 int main(int argc, char* argv[]) {
+  // --version must work on machines without a display (CI, SSH), so answer it
+  // before any GUI object exists.
+  for (int i = 1; i < argc; ++i) {
+    const std::string arg = argv[i];
+    if (arg == "--version" || arg == "-v") {
+      std::cout << nova::core::kAppName << ' ' << nova::core::kVersion << '\n';
+      return 0;
+    }
+  }
+
   QApplication app(argc, argv);
   QCoreApplication::setOrganizationName(QStringLiteral("NOVA"));
   QCoreApplication::setApplicationName(QStringLiteral("NOVA Studio"));

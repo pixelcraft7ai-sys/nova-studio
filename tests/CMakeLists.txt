@@ -34,3 +34,8 @@ add_test(NAME layering_selftest
   COMMAND ${CMAKE_COMMAND} -DWORK_DIR=${CMAKE_BINARY_DIR}/layering-selftest
           -DCHECKER=${CMAKE_SOURCE_DIR}/tests/scripts/check_layering.cmake
           -P ${CMAKE_SOURCE_DIR}/tests/scripts/layering_selftest.cmake)
+
+# --version needs no display.
+add_test(NAME app_version_no_display COMMAND nova-studio --version)
+set_tests_properties(app_version_no_display PROPERTIES
+  ENVIRONMENT "QT_QPA_PLATFORM=" PASS_REGULAR_EXPRESSION "NOVA Studio ${PROJECT_VERSION}")
