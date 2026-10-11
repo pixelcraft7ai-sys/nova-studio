@@ -38,7 +38,8 @@ class Result {
 
   T& value() & { return std::get<T>(data_); }
   const T& value() const& { return std::get<T>(data_); }
-  // cppcheck-suppress returnStdMoveLocal  (data_ is a member, the move is intentional)
+  // data_ is a member, so the move is intentional.
+  // cppcheck-suppress returnStdMoveLocal
   T take() { return std::move(std::get<T>(data_)); }
   [[nodiscard]] const Error& error() const { return std::get<Error>(data_); }
 

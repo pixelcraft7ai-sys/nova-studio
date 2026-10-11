@@ -35,7 +35,16 @@ jobs:
       - name: Configure
         run: cmake --preset ci
       - name: Build
-        run: cmake --build --preset ci
+        shell: bash
+        run: |
+          set -o pipefail
+          if ! cmake --build --preset ci 2>&1 | tee build.log; then
+            # Surface the first compiler errors as annotations so they are readable without log download.
+            grep -E "error|Error|FAILED" build.log | head -15 | while IFS= read -r line; do
+              echo "::error::${line:0:400}"
+            done
+            exit 1
+          fi
       - name: Test
         run: ctest --preset ci
       - name: Collect diagnostics on failure
